@@ -1,0 +1,43 @@
+.account-button-class {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.login-page {
+  font-size: 20px;
+  text-align: center;
+}
+
+.sign-in-button-div {
+  text-align: center;
+}
+
+.register-button {
+  margin-right: 10px !important;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.login-fail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background-color: #ffffff;
+  border: 4px solid rgba(0,0,0,0.1);
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.logout-button{
+  float: right;
+}
+.home-user-name{
+  padding-left: 10px;
+  padding-right: 10px;
+  border-right: 5px solid lavender;
+}
+
