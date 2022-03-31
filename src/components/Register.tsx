@@ -56,7 +56,7 @@ const Register = () => {
         }
         try {
             await fetch(
-                'http://127.0.0.1:5000/user/add',
+                'https://python-flask-chouhua.herokuapp.com/user/add',
                 {
                     method: "POST",
                     headers: header,
@@ -78,6 +78,8 @@ const Register = () => {
                 })
 
         } catch (err) {
+            setFailRegister('Server is not open ')
+            handleOpen();
         }
     }
     return (

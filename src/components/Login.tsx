@@ -58,7 +58,7 @@ const Login = () => {
         }
         try {
             await fetch(
-                'http://127.0.0.1:5000/user/login',
+                'https://python-flask-chouhua.herokuapp.com/user/login',
                 {
                     method: "POST",
                     headers: header,
@@ -83,7 +83,8 @@ const Login = () => {
                 })
 
         } catch (err) {
-            console.log(err)
+            setFailLogin('Server is not open ')
+            handleOpen();
         }
     }
     const register = (event: React.MouseEvent<HTMLButtonElement>) => {
