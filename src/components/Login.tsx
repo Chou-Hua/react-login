@@ -8,24 +8,16 @@ import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
-import jwt_decode from "jwt-decode";
+import { Loading } from "./LoadingOverlay";
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 const Login = () => {
     let navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState<any>(false);
+    const [loadingOpen, setLoadingOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleLoadingOpen = () => setLoadingOpen(true);
+    const handleLoadingClose = () => setLoadingOpen(false);
     const [account, setAccount] = useState<String | null>(null);
     const [password, setPassword] = useState<String | null>(null);
     const [isLogin, setIsLogin] = useState<Boolean | any>(false);
@@ -39,7 +31,9 @@ const Login = () => {
         setPassword(password);
     }
     const signIn = async () => {
+        handleLoadingOpen();
         await loginApi();
+        handleLoadingClose();
     }
     useEffect(() => {
         if (isLogin) {
@@ -71,7 +65,7 @@ const Login = () => {
                                 setIsLogin(json.success);
                                 console.log(json.success);
                                 console.log(json.status)
-                                localStorage.setItem('jwt',json.access_token)
+                                localStorage.setItem('jwt', json.access_token)
                             })
                     } else {
                         response.json()
@@ -94,6 +88,7 @@ const Login = () => {
     return (
         <div>
             <div>
+                <Loading isLoading={loadingOpen}/>
                 <Modal
                     aria-labelledby="transition-modal-title"
                     aria-describedby="transition-modal-description"

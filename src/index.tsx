@@ -3,19 +3,26 @@ import ReactDOM from 'react-dom';
 import '../src/styles/main.scss'
 import Login from "./components/Login";
 import Register from "./components/Register"
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+// import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Main from './components/Main'
 import reportWebVitals from './reportWebVitals';
+import Header from "./components/Header";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Fragment } from 'react';
 
 ReactDOM.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
+        <Router>
+            <Fragment>
+                <Routes>
                     <Route path="/" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
-                    <Route path="/Main" element={<Main/>}/>
-            </Routes>
-        </BrowserRouter>
+                    <Route path='/' element={<Header/>}>
+                        <Route path="/Main" element={<Main/>}/>
+                    </Route>
+                </Routes>
+            </Fragment>
+        </Router>
     </React.StrictMode>,
     document.getElementById('root')
 );
