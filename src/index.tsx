@@ -9,7 +9,7 @@ import reportWebVitals from './reportWebVitals';
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Fragment } from 'react';
-
+import Kline from "./components/Kline";
 ReactDOM.render(
     <React.StrictMode>
         <Router>
@@ -20,6 +20,7 @@ ReactDOM.render(
                     <Route path='/' element={<Header/>}>
                         <Route path="/Main" element={<Main/>}/>
                     </Route>
+                    <Route path='websocket' element={<Kline/>}/>
                 </Routes>
             </Fragment>
         </Router>
