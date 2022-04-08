@@ -32,12 +32,12 @@ const Register = () => {
         setEmail(email);
     }
     const loginPage = () => {
-        let path = '/'
+        let path = '/login'
         navigate(path)
     }
     useEffect(() => {
         if (isRegister) {
-            let path = '/'
+            let path = '/login'
             navigate(path)
         }
     }, [isRegister])

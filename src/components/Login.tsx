@@ -37,7 +37,7 @@ const Login = () => {
     }
     useEffect(() => {
         if (isLogin) {
-            let path = '/Main'
+            let path = '/'
             navigate(path)
         }
     }, [isLogin])

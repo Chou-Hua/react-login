@@ -1,8 +1,8 @@
-const Main = () => {
+const AboutMe = () => {
     return (
         <div>
             <h1>
-                MAIN Page
+                About Me Page
             </h1>
         </div>
 
@@ -10,4 +10,4 @@ const Main = () => {
     )
 }
 
-export default Main;
+export default AboutMe;
