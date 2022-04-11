@@ -9,6 +9,8 @@ import Fade from '@mui/material/Fade';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import { Loading } from "./LoadingOverlay";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -18,18 +20,32 @@ const Login = () => {
     const handleClose = () => setOpen(false);
     const handleLoadingOpen = () => setLoadingOpen(true);
     const handleLoadingClose = () => setLoadingOpen(false);
-    const [account, setAccount] = useState<String | null>(null);
-    const [password, setPassword] = useState<String | null>(null);
+    const validationSchema = Yup.object({
+        account: Yup.string()
+          .min(5,'名稱長度至少為5')
+          .required('必填'),
+        password: Yup.string()
+          .test("passwordCheck","密碼須包含大小寫字母且長度為8",(value:any)=>{
+              if(formik.values.account==='admin'){
+                  console.log('inininini')
+                  return true;
+              }
+              return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+          })
+          .required('必填')
+    });
+    const formik = useFormik({
+        initialValues: {
+            account: '',
+            password: '',
+        },
+        validationSchema: validationSchema,
+        onSubmit: () => {
+            signIn().then();
+        },
+    });
     const [isLogin, setIsLogin] = useState<Boolean | any>(false);
     const [failLogin, setFailLogin] = useState<String | null>(null);
-    const accountHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredName = event.target.value.toString();
-        setAccount(enteredName);
-    };
-    const passwordHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const password = event.target.value.toString();
-        setPassword(password);
-    }
     const signIn = async () => {
         handleLoadingOpen();
         await loginApi();
@@ -47,8 +63,8 @@ const Login = () => {
             "Accept": "application/json"
         }
         let body = {
-            "account": account,
-            "password": password
+            "account": formik.values.account,
+            "password": formik.values.password
         }
         try {
             await fetch(
@@ -115,34 +131,44 @@ const Login = () => {
             <h3 className="login-page">
                 Login Page
             </h3>
+            <form onSubmit={formik.handleSubmit}>
             <div className="account-button-class">
                 <TextField
                     required
+                    value={formik.values.account}
                     id="outlined-password-input"
+                    name="account"
                     label="Account"
                     type="text"
-                    onChange={accountHandle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.account && Boolean(formik.errors.account)}
+                    helperText={formik.touched.account && formik.errors.account}
                 />
             </div>
             <div className="account-button-class">
                 <TextField
                     required
                     id="outlined-password-input"
+                    value={formik.values.password}
+                    name="password"
                     label="Password"
                     type="password"
                     autoComplete="current-password"
-                    onChange={passwordHandle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                 /></div>
             <div className="sign-in-button-div">
                 <div>
                     <Button variant="contained" className="register-button" onClick={register}>
                         Register
                     </Button>
-                    <Button variant="contained" onClick={signIn}>
+                    <Button variant="contained" type="submit">
                         Sign In
                     </Button>
                 </div>
             </div>
+            </form>
         </div>
     )
 }

@@ -1,13 +1,13 @@
 const AboutMe = () => {
-    return (
-        <div>
-            <h1>
-                About Me Page
-            </h1>
-        </div>
+  return (
+    <div>
+      <div>
+        <img width={400} height={400}/>
+      </div>
+    </div>
 
 
-    )
+  )
 }
 
 export default AboutMe;

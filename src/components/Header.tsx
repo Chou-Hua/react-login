@@ -29,6 +29,7 @@ export default function Header() {
     }
     const changePassword = () => {
         jumpPage('/changePassword')
+        handleMenuClose();
     }
     const getAccountName = () => {
         const jwt = JSON.parse(JSON.stringify(localStorage.getItem('jwt')))
@@ -68,7 +69,7 @@ export default function Header() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={changePassword}>ChangePassword</MenuItem>
             <MenuItem onClick={logOut}>LogOut</MenuItem>
         </Menu>
     );

@@ -8,29 +8,81 @@ import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const Register = () => {
     let navigate = useNavigate();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [account, setAccount] = useState<String | null>(null);
-    const [password, setPassword] = useState<String | null>(null);
-    const [email, setEmail] = useState<String | null>(null);
+    const registerAccount = async () => {
+        await createAccountApi();
+    }
+    const createAccountApi = async () => {
+        let header = {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        }
+        let body = {
+            "account": formik.values.account,
+            "email": formik.values.email,
+            "password": formik.values.password,
+        }
+        try {
+            await fetch(
+              'https://python-flask-chouhua.herokuapp.com/user/add',
+              {
+                  method: "POST",
+                  headers: header,
+                  body: JSON.stringify(body)
+              })
+              .then(response => {
+                  if (response.status === 200) {
+                      response.json()
+                        .then(json => {
+                            setIsRegister(json.success);
+                        })
+                  } else {
+                      response.json()
+                        .then(json => {
+                            setFailRegister(json.error);
+                            handleOpen();
+                        })
+                  }
+              })
+
+        } catch (err) {
+            setFailRegister('Server is not open ')
+            handleOpen();
+        }
+    }
+    const validationSchema = Yup.object({
+        account: Yup.string()
+          .min(5,'名稱長度至少為5')
+          .required('必填'),
+        password: Yup.string()
+          .test("passwordCheck","密碼須包含大小寫字母且長度為8",(value:any)=>{
+              return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
+          })
+          .required('必填'),
+        email: Yup.string()
+          .email('email格式錯誤')
+          .required('必填'),
+    });
+    const formik = useFormik({
+        initialValues: {
+            account: '',
+            password: '',
+            email:''
+        },
+        validationSchema: validationSchema,
+        onSubmit: () => {
+            registerAccount().then();
+        },
+    });
     const [isRegister, setIsRegister] = useState<Boolean | null>(null);
     const [failRegister, setFailRegister] = useState<String | null>(null);
-    const accountHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const enteredName = event.target.value.toString();
-        setAccount(enteredName);
-    };
-    const passwordHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const password = event.target.value.toString();
-        setPassword(password);
-    }
-    const emailHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const email = event.target.value.toString();
-        setEmail(email);
-    }
     const loginPage = () => {
         let path = '/login'
         navigate(path)
@@ -41,47 +93,7 @@ const Register = () => {
             navigate(path)
         }
     }, [isRegister])
-    const registerAccount = async () => {
-        await createAccountApi();
-    }
-    const createAccountApi = async () => {
-        let header = {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        }
-        let body = {
-            "account": account,
-            "email": email,
-            "password": password
-        }
-        try {
-            await fetch(
-                'https://python-flask-chouhua.herokuapp.com/user/add',
-                {
-                    method: "POST",
-                    headers: header,
-                    body: JSON.stringify(body)
-                })
-                .then(response => {
-                    if (response.status === 200) {
-                        response.json()
-                            .then(json => {
-                                setIsRegister(json.success);
-                            })
-                    } else {
-                        response.json()
-                            .then(json => {
-                                setFailRegister(json.error);
-                                handleOpen();
-                            })
-                    }
-                })
 
-        } catch (err) {
-            setFailRegister('Server is not open ')
-            handleOpen();
-        }
-    }
     return (
         <div>
             <div>
@@ -111,20 +123,29 @@ const Register = () => {
             <h3 className="login-page">
                 Register
             </h3>
+            <form onSubmit={formik.handleSubmit}>
             <div className="account-button-class">
                 <TextField
                     id="outlined-password-input"
                     label="Account"
+                    value={formik.values.account}
+                    name="account"
                     type="text"
-                    onChange={accountHandle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.account && Boolean(formik.errors.account)}
+                    helperText={formik.touched.account && formik.errors.account}
                 />
             </div>
             <div className="account-button-class">
                 <TextField
                     id="outlined-password-input"
                     label="Password"
+                    name="password"
+                    value={formik.values.password}
                     type="password"
-                    onChange={passwordHandle}
+                    onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                 />
             </div>
             <div className="account-button-class">
@@ -132,17 +153,22 @@ const Register = () => {
                     id="outlined-password-input"
                     label="email"
                     type="email"
-                    onChange={emailHandle}
+                    value={formik.values.email}
+                    name="email"
+                    onChange={formik.handleChange}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
                 />
             </div>
             <div className="text-center">
                 <Button onClick={loginPage} className="login-button">
                     LogIn
                 </Button>
-                <Button variant="contained" onClick={registerAccount}>
+                <Button variant="contained"  type="submit">
                     Apply
                 </Button>
             </div>
+            </form>
         </div>
     )
 }
