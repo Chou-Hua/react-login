@@ -24,6 +24,7 @@ export default function Header() {
     }
 
     const logOut = () => {
+        localStorage.setItem('jwt','')
         jumpPage('/login')
         handleMenuClose();
     }
@@ -31,11 +32,11 @@ export default function Header() {
         jumpPage('/changePassword')
         handleMenuClose();
     }
-    const getAccountName = () => {
-        const jwt = JSON.parse(JSON.stringify(localStorage.getItem('jwt')))
-        const jwtJson: any = jwt_decode<Object>(jwt)
-        return jwtJson?.sub;
-    }
+    // const getAccountName = () => {
+    //     const jwt = JSON.parse(JSON.stringify(localStorage.getItem('jwt')))
+    //     const jwtJson: any = jwt_decode<Object>(jwt)
+    //     return jwtJson?.sub;
+    // }
     const [value, setValue] = React.useState(0);
     const navClick = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -138,7 +139,7 @@ export default function Header() {
                     >
                         <AccountCircle/>
                     </IconButton>
-                    <div className='home-user-name'>{getAccountName()}</div>
+                    {/*<div className='home-user-name'>{getAccountName()}</div>*/}
                 </Toolbar>
             </AppBar>
             {renderMenu}

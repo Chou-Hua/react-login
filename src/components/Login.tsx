@@ -11,6 +11,8 @@ import Box from '@mui/material/Box';
 import { Loading } from "./LoadingOverlay";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { isHaveToken } from "../atoms/tokenAtom";
+import { useRecoilState } from "recoil";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -20,6 +22,7 @@ const Login = () => {
     const handleClose = () => setOpen(false);
     const handleLoadingOpen = () => setLoadingOpen(true);
     const handleLoadingClose = () => setLoadingOpen(false);
+    const [isHaveTokenState,setIsHaveTokenState] = useRecoilState(isHaveToken)
     const validationSchema = Yup.object({
         account: Yup.string()
           .min(5,'名稱長度至少為5')
@@ -53,6 +56,7 @@ const Login = () => {
     }
     useEffect(() => {
         if (isLogin) {
+            setIsHaveTokenState(true);
             let path = '/'
             navigate(path)
         }

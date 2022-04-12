@@ -1,12 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header'
+import React from "react";
 
-const PageLayout = () => (
+const PageLayout = () => {
+  return (
     <div>
-        <Header/>
-        <Outlet/>
+      <Header/>
+      <Outlet/>
     </div>
-
-);
+  )
+};
 
 export default PageLayout;
