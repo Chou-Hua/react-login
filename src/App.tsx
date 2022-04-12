@@ -18,13 +18,7 @@ import { useRecoilValue } from "recoil";
 
 
 export default function App() {
-  // const jwt = localStorage.getItem('jwt')
   const isHaveTokenState = useRecoilValue(isHaveToken)
-  // const isHaveToken = () => {
-  //   console.log('jwt',jwt)
-  //   console.log(jwt !== '' && jwt !== null && jwt !==undefined)
-  //   return jwt !== '' && jwt !== null && jwt !==undefined
-  // }
   interface token {
     isAuthenticated:Boolean
   }
