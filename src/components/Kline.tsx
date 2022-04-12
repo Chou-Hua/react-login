@@ -45,7 +45,6 @@ export default function Kline() {
     }
     const testLog = () => {
         let covetData = covertObjKeyName(lastJsonMessage.data);
-        console.log(covetData)
         return JSON.stringify(covetData, null, 4);
     }
 

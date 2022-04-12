@@ -23,7 +23,6 @@ export default function App() {
     isAuthenticated:Boolean
   }
   const PrivateWrapper = (props:token) => {
-    console.log('token',props.isAuthenticated)
     return props.isAuthenticated ? <PageLayout /> : <Navigate to="/login" />;
   };
   return (

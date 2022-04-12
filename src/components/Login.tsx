@@ -11,8 +11,9 @@ import Box from '@mui/material/Box';
 import { Loading } from "./LoadingOverlay";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { isHaveToken } from "../atoms/tokenAtom";
+import { isHaveToken,loginAccount } from "../atoms/tokenAtom";
 import { useRecoilState } from "recoil";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -22,15 +23,15 @@ const Login = () => {
     const handleClose = () => setOpen(false);
     const handleLoadingOpen = () => setLoadingOpen(true);
     const handleLoadingClose = () => setLoadingOpen(false);
-    const [isHaveTokenState,setIsHaveTokenState] = useRecoilState(isHaveToken)
+    const [isHaveTokenState, setIsHaveTokenState] = useRecoilState(isHaveToken)
+    const [loginAccountName, setLoginAccountName] = useRecoilState(loginAccount)
     const validationSchema = Yup.object({
         account: Yup.string()
-          .min(5,'名稱長度至少為5')
+          .min(4,'名稱長度至少為4')
           .required('必填'),
         password: Yup.string()
           .test("passwordCheck","密碼須包含大小寫字母且長度為8",(value:any)=>{
               if(formik.values.account==='admin'){
-                  console.log('inininini')
                   return true;
               }
               return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
@@ -54,9 +55,15 @@ const Login = () => {
         await loginApi();
         handleLoadingClose();
     }
+    const getAccountName = () => {
+      const jwt = JSON.parse(JSON.stringify(localStorage.getItem('jwt')))
+      const jwtJson: any = jwt_decode<Object>(jwt)
+      return jwtJson?.sub;
+    }
     useEffect(() => {
         if (isLogin) {
             setIsHaveTokenState(true);
+            setLoginAccountName(getAccountName());
             let path = '/'
             navigate(path)
         }
@@ -82,10 +89,8 @@ const Login = () => {
                     if (response.status === 200) {
                         response.json()
                             .then(json => {
-                                setIsLogin(json.success);
-                                console.log(json.success);
-                                console.log(json.status)
                                 localStorage.setItem('jwt', json.access_token)
+                                setIsLogin(json.success);
                             })
                     } else {
                         response.json()

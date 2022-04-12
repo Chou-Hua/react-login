@@ -1,6 +1,14 @@
-import {atom} from "recoil";
+import { atom } from "recoil";
 
 export const isHaveToken = atom({
-  key:"isHaveToken",
-  default:false
+  key: "isHaveToken",
+  default: false
+})
+export const loginAccount = atom({
+  key: "loginAccount",
+  default: ''
+})
+export const isChangePassword = atom({
+  key: "isChangePassword",
+  default: false
 })
