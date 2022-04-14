@@ -14,6 +14,9 @@ import { useEffect } from "react";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Tooltip from '@mui/material/Tooltip';
+import { Details } from "@mui/icons-material";
+
 
 export default function Header() {
     let navigate = useNavigate();
@@ -128,6 +131,7 @@ export default function Header() {
                             <LinkTab label="About me"/>
                         </Tabs>
                     </Typography>
+                    <Tooltip title='Details'>
                     <IconButton
                         size="large"
                         edge="end"
@@ -139,6 +143,7 @@ export default function Header() {
                     >
                         <AccountCircle/>
                     </IconButton>
+                    </Tooltip>
                     <div className='home-user-name'>{getAccountName()}</div>
                 </Toolbar>
             </AppBar>

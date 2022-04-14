@@ -1,0 +1,180 @@
+.about-me-context {
+  flex: 0.7;
+  max-width: 720px;
+}
+
+.about-me-context-title {
+  display: flex;
+  -webkit-box-pack: justify;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #8c8989;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.about-me-context-text {
+  padding-top: 3px;
+  font-size: 16px;
+  text-transform: none;
+  color: rgb(152, 126, 199);
+}
+
+.about-me-p {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+
+.about-me-class {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  @media screen and (max-width: 720px) {
+    display: block;
+  }
+}
+
+
+.about-me-header {
+  height: 95vh;
+  background-image: url('../assets/background-image.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 85%);
+  position: relative;
+}
+
+.about-title {
+  margin: auto;
+  text-align: center;
+}
+
+.hd-div {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.hd-h1 {
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+}
+
+.hd-hello {
+  display: block;
+  font-weight: 300;
+  font-size: 4rem;
+  letter-spacing: 10px;
+  animation-name: kRITuz;
+  animation-duration: 1s;
+  @media screen and (max-width: 720px) {
+    font-size: 3rem;
+  }
+}
+
+.hd-name {
+  display: block;
+  font-weight: 700;
+  font-size: 6rem;
+  letter-spacing: 20px;
+  word-spacing: 30px;
+  animation-name: kXYieA;
+  animation-duration: 1s;
+  @media screen and (max-width: 720px) {
+    font-size: 3rem;
+  }
+}
+
+.title-style {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(to right, rgb(176, 192, 215), rgb(197, 165, 224));
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+}
+
+.about-me-photo {
+  flex: 0.3;
+}
+
+
+.about-me-main {
+  margin: auto;
+  text-align: center;
+  background-color: #EEEA;
+  @media screen and (max-width: 720px) {
+    display: block;
+  }
+}
+
+.photo-main {
+  padding-top: 2rem;
+  padding-right: 2rem;
+}
+
+.header-image {
+  width: 100vw;
+}
+
+.user-image {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: 0.5s;
+  border-radius: 6px;
+}
+
+.user-image:hover {
+  border-radius: 50%;
+}
+
+
+.github-icon {
+  cursor: pointer;
+}
+
+.github-icon:hover {
+  opacity: 0.6;
+}
+
+.cake-resume-icon {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  background: green;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.cake-resume-icon:hover {
+  opacity: 0.6;
+}
+
+.icon-list {
+  justify-content: center;
+  display: flex;
+}
+
+.skill-div {
+  line-height: 20px;
+  color: rgb(85, 120, 170);
+  word-spacing: 5px;
+  text-align: left;
+}
+.button-list {
+  padding-top: 1rem;
+  text-align: left;
+  margin-bottom: 10rem;
+}
+
+.learn-button:hover {
+  transform: scale(1.1);
+}

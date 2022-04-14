@@ -40,8 +40,8 @@ const Login = () => {
     });
     const formik = useFormik({
         initialValues: {
-            account: '',
-            password: '',
+            account: 'admin',
+            password: '0000',
         },
         validationSchema: validationSchema,
         onSubmit: () => {
