@@ -107,10 +107,15 @@
   margin: auto;
   text-align: center;
   background-color: #EEEA;
+  animation: gradient 5s ease infinite;
   @media screen and (max-width: 720px) {
     display: block;
+    height: 100%;
+    min-height : 100%;
   }
 }
+
+
 
 .photo-main {
   padding-top: 2rem;

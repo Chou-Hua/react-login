@@ -4,7 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { SkillDetail } from "./SkillDetail";
 import { Link } from "react-scroll";
 import Button from "@mui/material/Button";
-
+import { Experience } from "./Experience";
 
 const AboutMe = () => {
   const openGithub = () => {
@@ -81,6 +81,7 @@ const AboutMe = () => {
         </div>
       </div>
       <SkillDetail/>
+      <Experience/>
     </div>
 
   )

@@ -19,11 +19,13 @@ import { useRecoilValue } from "recoil";
 
 export default function App() {
   const isHaveTokenState = useRecoilValue(isHaveToken)
+
   interface token {
-    isAuthenticated:Boolean
+    isAuthenticated: Boolean
   }
-  const PrivateWrapper = (props:token) => {
-    return props.isAuthenticated ? <PageLayout /> : <Navigate to="/login" />;
+
+  const PrivateWrapper = (props: token) => {
+    return props.isAuthenticated ? <PageLayout/> : <Navigate to="/login"/>;
   };
   return (
     <Router>
@@ -33,13 +35,11 @@ export default function App() {
         <Route path='/changePassword'
                element={<ChangePassword/>}/>
         <Route element={<PrivateWrapper isAuthenticated={isHaveTokenState}/>}>
-        <Route path="/">
-          <Route index element={<Main/>}/>
+          <Route path='/' element={<Main/>}/>
           <Route path='/websocket'
                  element={<Kline/>}/>
           <Route path='/about'
                  element={<AboutMe/>}/>
-        </Route>
         </Route>
       </Routes>
     </Router>

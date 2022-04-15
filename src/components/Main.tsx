@@ -1,9 +1,21 @@
+
+interface iconType {
+  icon: String,
+
+}
+
 const Main = () => {
+  const Flake = (props:iconType)=>{
+    return(
+      <div className='snowflake'>{props.icon}</div>
+    )
+  }
+  const icon = ['❅','❆','✿','❆','❅','❆','❀','❆','❅','❆','✿','❆','❅','❆','❀','❆']
     return (
-        <div>
-            <h1>
-                MAIN Page
-            </h1>
+        <div className='main-bg'>
+          {icon.map((item,i)=>(
+            <Flake icon={item}/>
+            ))}
         </div>
 
 

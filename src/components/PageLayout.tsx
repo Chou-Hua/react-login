@@ -4,10 +4,10 @@ import React from "react";
 
 const PageLayout = () => {
   return (
-    <div>
+    <>
       <Header/>
       <Outlet/>
-    </div>
+    </>
   )
 };
 
