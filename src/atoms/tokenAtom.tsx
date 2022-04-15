@@ -12,3 +12,7 @@ export const isChangePassword = atom({
   key: "isChangePassword",
   default: false
 })
+export const nowRoutePath = atom({
+  key: "nowRoutePath",
+  default: '/'
+})

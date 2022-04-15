@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRecoilState, useRecoilValue } from "recoil";
-import { isHaveToken, loginAccount } from "../atoms/tokenAtom";
+import { isHaveToken, loginAccount, nowRoutePath } from "../atoms/tokenAtom";
 import { useNavigate } from "react-router-dom";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
@@ -15,42 +15,47 @@ import Typography from "@mui/material/Typography";
 import { Loading } from "./LoadingOverlay";
 import { isChangePassword } from "../atoms/tokenAtom";
 
-const ChangePassword = ()=>{
+const ChangePassword = () => {
   const navigate = useNavigate();
-  const validationSchema:any = Yup.object({
+  const validationSchema: any = Yup.object({
     oldPassword: Yup.string()
       .min(8, '密碼長度需大於8')
       .required('Password is required'),
     newPassword: Yup.string()
-      .test("passwordCheck","密碼須包含大小寫字母且長度為8",(value:any)=>{
+      .test("passwordCheck", "密碼須包含大小寫字母且長度為8", (value: any) => {
         return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(value)
       })
-      .test('oldNewCheck',"新舊密碼不得一致",(value:any)=>{
+      .test('oldNewCheck', "新舊密碼不得一致", (value: any) => {
         return !(value === formik.values.oldPassword)
       })
       .required('Password is required'),
     againPassword: Yup.string()
       .when('newPassword', (newPassword, schema) => {
-        return newPassword ? schema.oneOf([newPassword], '密碼需相同').required() : schema}),
+        return newPassword ? schema.oneOf([newPassword], '密碼需相同').required() : schema
+      }),
   });
   const [loadingOpen, setLoadingOpen] = React.useState(false);
   const handleLoadingOpen = () => setLoadingOpen(true);
   const handleLoadingClose = () => setLoadingOpen(false);
-  const [isChangePasswordState,setIsChangeStatePassword] = useRecoilState(isChangePassword)
+  const [isChangePasswordState, setIsChangeStatePassword] = useRecoilState(isChangePassword)
   const [isHaveTokenState, setIsHaveTokenState] = useRecoilState(isHaveToken)
   const loginAccountName = useRecoilValue(loginAccount);
   const [open, setOpen] = React.useState(false);
+  const routePath: string = useRecoilValue(nowRoutePath)
   const handleOpen = () => setOpen(true);
-  const handleClose = () =>
-  {
+  const handleClose = () => {
     setOpen(false)
-    if(isChangePasswordState) {
+    if (isChangePasswordState) {
       setIsHaveTokenState(false);
       loginPage();
     }
   };
-  const [responseText,setResponseText] = useState(null);
-  const loginPage = () =>{
+  const jumpPage = () => {
+    let jump = routePath;
+    navigate(jump);
+  }
+  const [responseText, setResponseText] = useState(null);
+  const loginPage = () => {
     let path = '/login';
     navigate(path);
   }
@@ -60,7 +65,7 @@ const ChangePassword = ()=>{
       "Accept": "application/json"
     }
     let body = {
-      "account" : loginAccountName,
+      "account": loginAccountName,
       "oldPassword": formik.values.oldPassword,
       "newPassword": formik.values.newPassword
     }
@@ -96,7 +101,7 @@ const ChangePassword = ()=>{
     initialValues: {
       oldPassword: '',
       newPassword: '',
-      againPassword:''
+      againPassword: ''
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -106,10 +111,10 @@ const ChangePassword = ()=>{
     },
   });
 
-    return(
-      <div>
-        <Loading isLoading={loadingOpen}/>
-        <Modal
+  return (
+    <div>
+      <Loading isLoading={loadingOpen}/>
+      <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
@@ -128,57 +133,60 @@ const ChangePassword = ()=>{
           </Box>
         </Fade>
       </Modal>
-        <div className="pt-20">
-          <form onSubmit={formik.handleSubmit}>
-            <div className="account-button-class">
-                <h1> Change Password</h1>
-                <TextField
-                    required
-                    name="oldPassword"
-                    id="outlined-password-input"
-                    value={formik.values.oldPassword}
-                    label="Old Password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    error={formik.touched.oldPassword && Boolean(formik.errors.oldPassword)}
-                    helperText={formik.touched.oldPassword && formik.errors.oldPassword}
-                />
-            </div>
-            <div className="account-button-class">
-                <TextField
-                    required
-                    value={formik.values.newPassword}
-                    name="newPassword"
-                    id="outlined-password-input"
-                    label="New Password"
-                    type="password"
-                    onChange={formik.handleChange}
-                    error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
-                    helperText={formik.touched.newPassword && formik.errors.newPassword}
-                />
-            </div>
-            <div className="account-button-class">
-                <TextField
-                  required
-                  name="againPassword"
-                  value={formik.values.againPassword}
-                  id="outlined-password-input"
-                  label="Again Password"
-                  type="password"
-                  onChange={formik.handleChange}
-                  error={formik.touched.againPassword && Boolean(formik.errors.againPassword)}
-                  helperText={formik.touched.againPassword && formik.errors.againPassword}
-                />
-            </div>
-            <div className="account-button-class">
-            <Button variant="contained" type="submit">
-                Submit
+      <div className="pt-20">
+        <form onSubmit={formik.handleSubmit}>
+          <div className="account-button-class">
+            <h1> Change Password</h1>
+            <TextField
+              required
+              name="oldPassword"
+              id="outlined-password-input"
+              value={formik.values.oldPassword}
+              label="Old Password"
+              type="password"
+              onChange={formik.handleChange}
+              error={formik.touched.oldPassword && Boolean(formik.errors.oldPassword)}
+              helperText={formik.touched.oldPassword && formik.errors.oldPassword}
+            />
+          </div>
+          <div className="account-button-class">
+            <TextField
+              required
+              value={formik.values.newPassword}
+              name="newPassword"
+              id="outlined-password-input"
+              label="New Password"
+              type="password"
+              onChange={formik.handleChange}
+              error={formik.touched.newPassword && Boolean(formik.errors.newPassword)}
+              helperText={formik.touched.newPassword && formik.errors.newPassword}
+            />
+          </div>
+          <div className="account-button-class">
+            <TextField
+              required
+              name="againPassword"
+              value={formik.values.againPassword}
+              id="outlined-password-input"
+              label="Again Password"
+              type="password"
+              onChange={formik.handleChange}
+              error={formik.touched.againPassword && Boolean(formik.errors.againPassword)}
+              helperText={formik.touched.againPassword && formik.errors.againPassword}
+            />
+          </div>
+          <div className="account-button-class">
+            <Button onClick={jumpPage}>
+              Back
             </Button>
-            </div>
-          </form>
-        </div>
+            <Button variant="contained" type="submit">
+              Submit
+            </Button>
+          </div>
+        </form>
       </div>
-    )
+    </div>
+  )
 }
 
 export default ChangePassword

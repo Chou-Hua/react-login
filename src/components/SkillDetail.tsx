@@ -12,27 +12,27 @@ interface cardsType {
 
 const CustomCard = (props: cardsType) => {
   return (
-      <Card className='card-div'>
-        {props.className}
-        <h3 className='card-title-h3'>{props.title}</h3>
-        <CardContent>
-          <ul className={props.content.length > 8 ? 'ul-dots-remove-8' : 'ul-dots-remove'}>
-            {props.content.map((item: String, i: Number) => (
-              <li className='li-test'>{item}</li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
+    <Card className='card-div'>
+      {props.className}
+      <h3 className='card-title-h3'>{props.title}</h3>
+      <CardContent>
+        <ul className={props.content.length > 8 ? 'ul-dots-remove-8' : 'ul-dots-remove'}>
+          {props.content.map((item: String, i) => (
+            <li key={i} className='li-test'>{item}</li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   )
 }
 const cards = [
   {
-    icon: <AssignmentIcon sx={{ fontSize: 80,color:"rgb(85, 120, 170,0.7)" }} />,
+    icon: <AssignmentIcon className='assignment-icon' sx={{fontSize: 80, color: "rgb(85, 120, 170,0.7)"}}/>,
     title: 'Document Processing',
     list: ['Word', 'PowerPoint', 'Excel'],
   },
   {
-    icon: <BuildIcon sx={{ fontSize: 80,color:"rgb(85, 120, 170,0.7)" }} />,
+    icon: <BuildIcon className="build-icon" sx={{fontSize: 80, color: "rgb(85, 120, 170,0.7)"}}/>,
     title: 'Web Development',
     list: [
       'HTML5',
@@ -50,7 +50,7 @@ const cards = [
     ],
   },
   {
-    icon: <LanguageIcon sx={{ fontSize: 80,color:"rgb(85, 120, 170,0.7)" }} />,
+    icon: <LanguageIcon className="language-icon" sx={{fontSize: 80}}/>,
     title: 'Language',
     list: ['Chinese', 'Taiwanese', 'English', 'Japen'],
   },
@@ -60,7 +60,7 @@ export const SkillDetail = () => {
     <div id="test" className='skill-learn'>
       <div className='skill-main'>
         {cards.map((card, i) => (
-          <CustomCard title={card.title} className={card.icon} content={card.list}></CustomCard>
+          <CustomCard key={i} title={card.title} className={card.icon} content={card.list}></CustomCard>
         ))}
       </div>
     </div>

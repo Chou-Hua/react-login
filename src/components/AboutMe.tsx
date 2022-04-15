@@ -71,15 +71,14 @@ const AboutMe = () => {
           </div>
           <div className='skill-div'>SCSS | Vue | Vuex | JavaScript | React | Recoil | TypeScript</div>
           <div className='skill-div'>Python | JAVA | XMind | SonarQube | Mantis</div>
-          <div  className='button-list'>
-          <Button variant="contained" className="buttons">
-            <Link to='test' spy={true} smooth={true} duration={500}>
-              What I learn
-            </Link>
-          </Button>
+          <div className='button-list'>
+            <Button variant="contained" className="buttons">
+              <Link to='test' spy={true} smooth={true} duration={500}>
+                What I learn
+              </Link>
+            </Button>
           </div>
         </div>
-
       </div>
       <SkillDetail/>
     </div>

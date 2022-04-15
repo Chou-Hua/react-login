@@ -16,6 +16,8 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from '@mui/material/Tooltip';
 import { Details } from "@mui/icons-material";
+import { useRecoilState } from "recoil";
+import { nowRoutePath } from "../atoms/tokenAtom";
 
 
 export default function Header() {
@@ -55,6 +57,7 @@ export default function Header() {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
+    const [routePath,setRoutePath] = useRecoilState(nowRoutePath)
     const isMenuOpen = Boolean(anchorEl);
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -95,36 +98,40 @@ export default function Header() {
         switch (value) {
             case 0:
                 jumpPage('/');
+                setRoutePath('/');
                 break;
             case 1:
                 jumpPage('/websocket');
+                setRoutePath('/websocket');
                 break;
             case 2:
                 jumpPage('/about');
+                setRoutePath('/about');
                 break;
 
         }
     }, [value])
     return (
         <div>
-            <AppBar position="static">
+            <AppBar position="fixed">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="open drawer"
-                        sx={{mr: 2}}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+                    {/*<IconButton*/}
+                    {/*    size="large"*/}
+                    {/*    edge="start"*/}
+                    {/*    color="inherit"*/}
+                    {/*    aria-label="open drawer"*/}
+                    {/*    sx={{mr: 2}}*/}
+                    {/*>*/}
+                    {/*    <MenuIcon/>*/}
+                    {/*</IconButton>*/}
+                    <Typography  component="div" sx={{flexGrow: 1}}>
                         <Tabs
                             value={value}
                             onChange={navClick}
                             indicatorColor="secondary"
                             textColor="inherit"
-                            aria-label="secondary tabs example"
+                            scrollButtons="auto"
+                            allowScrollButtonsMobile
                         >
                             <LinkTab label="Main"/>
                             <LinkTab label="Binance Kline"/>
@@ -147,6 +154,7 @@ export default function Header() {
                     <div className='home-user-name'>{getAccountName()}</div>
                 </Toolbar>
             </AppBar>
+            <Toolbar/>
             {renderMenu}
         </div>
 

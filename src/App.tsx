@@ -30,6 +30,8 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path='/changePassword'
+               element={<ChangePassword/>}/>
         <Route element={<PrivateWrapper isAuthenticated={isHaveTokenState}/>}>
         <Route path="/">
           <Route index element={<Main/>}/>
@@ -37,8 +39,6 @@ export default function App() {
                  element={<Kline/>}/>
           <Route path='/about'
                  element={<AboutMe/>}/>
-          <Route path='/changePassword'
-                 element={<ChangePassword/>}/>
         </Route>
         </Route>
       </Routes>
