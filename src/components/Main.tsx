@@ -14,7 +14,7 @@ const Main = () => {
     return (
         <div className='main-bg'>
           {icon.map((item,i)=>(
-            <Flake icon={item}/>
+            <Flake key={i} icon={item}/>
             ))}
         </div>
 

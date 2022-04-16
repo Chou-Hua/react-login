@@ -112,7 +112,7 @@ const ChangePassword = () => {
   });
 
   return (
-    <div>
+    <div className='login-page-main'>
       <Loading isLoading={loadingOpen}/>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -133,7 +133,7 @@ const ChangePassword = () => {
           </Box>
         </Fade>
       </Modal>
-      <div className="pt-20">
+      <div className="login-page-component">
         <form onSubmit={formik.handleSubmit}>
           <div className="account-button-class">
             <h1> Change Password</h1>

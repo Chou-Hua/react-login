@@ -3,7 +3,27 @@
   padding-bottom: 1rem;
 }
 
-.login-page {
+body {
+  height: 100vh;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-page-main {
+  height: 100vh;
+  background-image: url("../assets/home.jpg");
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.login-page-component {
+  background-color: hsla(0, 0%, 100%, .8) !important;
+  padding:5rem;
+  border-radius: 6px;
+}
+
+.login-page-title {
   font-size: 20px;
   text-align: center;
 }
@@ -41,6 +61,6 @@
   padding-right: 10px;
 }
 
-.pt-20{
+.pt-20 {
   padding-top: 20px;
 }
