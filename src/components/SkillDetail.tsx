@@ -57,7 +57,7 @@ const cards = [
 ];
 export const SkillDetail = () => {
   return (
-    <div id="test" className='skill-learn'>
+    <div id="skill_learn" className='skill-learn'>
       <div className='skill-main'>
         {cards.map((card, i) => (
           <CustomCard key={i} title={card.title} className={card.icon} content={card.list}></CustomCard>

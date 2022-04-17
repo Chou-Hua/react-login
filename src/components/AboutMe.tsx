@@ -73,8 +73,13 @@ const AboutMe = () => {
           <div className='skill-div'>Python | JAVA | XMind | SonarQube | Mantis</div>
           <div className='button-list'>
             <Button variant="contained" className="buttons">
-              <Link to='test' spy={true} smooth={true} duration={500}>
+              <Link to='skill_learn' spy={true} smooth={true} duration={500}>
                 What I learn
+              </Link>
+            </Button>
+            <Button variant="contained" className="buttons">
+              <Link to='experience' spy={true} smooth={true} duration={500}>
+                Experience
               </Link>
             </Button>
           </div>
