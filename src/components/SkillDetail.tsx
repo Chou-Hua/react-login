@@ -52,7 +52,7 @@ const cards = [
   {
     icon: <LanguageIcon className="language-icon" sx={{fontSize: 80}}/>,
     title: 'Language',
-    list: ['Chinese', 'Taiwanese', 'English', 'Japen'],
+    list: ['Chinese', 'Taiwanese', 'English', 'Japan'],
   },
 ];
 export const SkillDetail = () => {
