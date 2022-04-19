@@ -68,25 +68,52 @@
   font-weight: 300;
   font-size: 4rem;
   letter-spacing: 10px;
-  animation-name: kRITuz;
   animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fadeInLeft;
   @media screen and (max-width: 720px) {
     font-size: 3rem;
   }
 }
-
 .hd-name {
   display: block;
   font-weight: 700;
   font-size: 6rem;
   letter-spacing: 20px;
   word-spacing: 30px;
-  animation-name: kXYieA;
+  animation-name: fadeInRight;
+  animation-fill-mode: both;
   animation-duration: 1s;
   @media screen and (max-width: 720px) {
     font-size: 3rem;
   }
 }
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
 
 .title-style {
   font-size: 2.5rem;
@@ -186,6 +213,6 @@
   transform: scale(1.1);
 }
 
-.experience-button{
+.experience-button {
   margin-left: 20px;
 }

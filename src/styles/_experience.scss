@@ -17,6 +17,9 @@
   background-image: linear-gradient(to right, rgb(176, 192, 215), rgb(197, 165, 224));
   -webkit-background-clip: text;
   color: transparent;
+  animation-name: fadeInRight;
+  animation-fill-mode: both;
+  animation-duration: 1s;
   letter-spacing: 2px;
 }
 
@@ -44,7 +47,9 @@
   margin: 2rem auto;
   position: relative;
   width: 60%;
-  //max-width: 114rem;
+  @media screen and (max-width: 720px) {
+    width: 100%
+  }
 }
 
 .timeline ul {
@@ -68,7 +73,10 @@
   background-color: #1685b8;
   padding: 0.3rem 2rem;
   border-radius: 6px;
-  transition: background-color 0.5s ease-out 0.1s
+  transition: background-color 0.5s ease-out 0.1s;
+  @media screen and (max-width: 720px) {
+    padding: 0.3rem 0.5rem;
+  }
 }
 
 .timeline ul li .content h3 {
@@ -127,9 +135,13 @@
 
 .experience-position {
   font-size: 1rem;
-  margin: 0px 1.6rem;
+  margin: 0 1.6rem;
   font-weight: 500;
   display: inline-block;
+  @media screen and (max-width: 720px) {
+    margin:0 0.5rem;
+    font-size: 0.7rem;
+  }
 }
 
 .experience-work-skill-list {

@@ -123,8 +123,8 @@ export const Experience = () => {
           <div className="timeline">
             <ul className='ul-class'>
               {experienceData.map((item: experienceDataType, i) => (
-                <li>
-                  <LiContent key={i} date={item.date} company={item.company} position={item.position}
+                <li key={i}>
+                  <LiContent date={item.date} company={item.company} position={item.position}
                              project={item.project}/>
                 </li>
               ))}
