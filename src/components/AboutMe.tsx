@@ -77,11 +77,13 @@ const AboutMe = () => {
                 What I learn
               </Link>
             </Button>
-            <Button variant="contained" className="buttons">
+            <div className="experience-button">
+            <Button variant="contained" >
               <Link to='experience' spy={true} smooth={true} duration={500}>
                 Experience
               </Link>
             </Button>
+            </div>
           </div>
         </div>
       </div>

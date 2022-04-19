@@ -81,7 +81,8 @@ card-div::before {
 
 .card-div:hover {
   transform: scale(1.05);
-  box-shadow: 3px 3px 3px #a29292;
+  transition: transform 0.2s ease-out  0.1s;
+  //box-shadow: 3px 3px 3px #a29292;
 
   .language-icon {
     transform: rotate(360deg);
@@ -100,6 +101,7 @@ card-div::before {
 }
 
 .card-div:not(:hover) {
+  transition: transform 0.2s ease-out  0.1s;
   .build-icon {
     transform: rotate(0deg);
     transition: 0.5s;

@@ -179,8 +179,13 @@
   padding-top: 1rem;
   text-align: left;
   margin-bottom: 10rem;
+  display: flex;
 }
 
 .learn-button:hover {
   transform: scale(1.1);
+}
+
+.experience-button{
+  margin-left: 20px;
 }
