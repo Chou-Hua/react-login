@@ -1,0 +1,151 @@
+.experience {
+  text-align: center;
+  padding-top: 10rem;
+  min-height: 50vh;
+  @media screen and (max-width: 720px) {
+    display: block;
+    height: 100%;
+  }
+}
+
+.experience-title {
+  text-align: center;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  display: inline-block;
+  background-image: linear-gradient(to right, rgb(176, 192, 215), rgb(197, 165, 224));
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 2px;
+}
+
+.experience-title h3 {
+  margin: 0;
+}
+
+.experience-main {
+  //display: flex;
+  //justify-content: center;
+  //align-items: center;
+  @media screen and (max-width: 720px) {
+    padding: 0;
+  }
+}
+
+
+.timeline {
+  color: black;
+  padding: 30px 20px;
+  text-align: left;
+}
+
+.ul-class {
+  margin: 2rem auto;
+  position: relative;
+  width: 60%;
+  //max-width: 114rem;
+}
+
+.timeline ul {
+  list-style-type: none;
+  border-left: 2px solid #094a68;
+  padding: 10px 5px;
+}
+
+.timeline ul li {
+  padding: 20px 20px;
+  position: relative;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.li-span {
+  color: rgb(250, 250, 250);
+  font-size: 1.2rem;
+  display: inline-block;
+  margin: 0;
+  background-color: #1685b8;
+  padding: 0.3rem 2rem;
+  border-radius: 6px;
+  transition: background-color 0.5s ease-out 0.1s
+}
+
+.timeline ul li .content h3 {
+  color: rgb(115, 115, 115);
+  font-size: 17px;
+  padding-top: 5px;
+  font-weight: bold;
+}
+
+
+.timeline ul li .content p {
+  color: rgba(115, 115, 115, 0.99);
+  font-size: 17px;
+  padding-top: 5px;
+}
+
+.timeline ul li .content h5 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(119, 109, 109);
+}
+
+.timeline ul li .content h5:before {
+  content: "- ";
+  font-size: 16px;
+  display: inline-block;
+  margin: 0px 0.3rem 0px 0px;
+}
+
+.timeline ul li:before {
+  outline: rgba(147, 147, 147, 0.98) solid 0.5rem;
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  background-color: #34ace0;
+  left: -11px;
+  top: 28px;
+  transition: .5s;
+}
+
+.timeline ul li:hover:before {
+  outline: rgba(206, 212, 225, 0.7) solid 0.5rem;
+  transform: rotate(-45deg);
+  background-color: #c996f6;
+}
+
+.timeline ul li:hover {
+  .li-span {
+    background-color: rgba(205, 130, 238, 0.9);
+  }
+}
+
+
+.experience-position {
+  font-size: 1rem;
+  margin: 0px 1.6rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.experience-work-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+  margin-top: 0.8rem;
+}
+
+.experience-work-skill-item {
+  border: 0.1rem solid rgb(85, 120, 170);
+  margin: 0.4rem;
+  padding: 0.1rem 1.0rem;
+  border-radius: 5rem;
+  font-size: 1rem;
+  color: rgb(85, 120, 170);
+  font-weight: 500;
+}
