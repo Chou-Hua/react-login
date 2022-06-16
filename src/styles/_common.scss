@@ -7,8 +7,8 @@
 }
 
 .main-bg {
-  height: 100vh;
-  min-height : 100vh;
+  //height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(-45deg, rgba(197, 144, 195, 0.58), #debdef, rgba(228, 159, 248, 0.87), rgba(221, 166, 236, 0.11));
   background-size: 400% 400%;
   //background-color: #8c8989;
@@ -174,3 +174,14 @@
   color: #000;
 }
 
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.float-right {
+  float: right;
+}

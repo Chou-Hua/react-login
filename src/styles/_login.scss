@@ -19,7 +19,7 @@ body {
 
 .login-page-component {
   background-color: hsla(0, 0%, 100%, .8) !important;
-  padding:5rem;
+  padding: 5rem;
   border-radius: 6px;
 }
 
@@ -38,6 +38,7 @@ body {
 
 .d-flex {
   display: flex;
+  align-items: center;
 }
 
 .login-fail {

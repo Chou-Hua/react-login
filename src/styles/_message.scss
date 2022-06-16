@@ -1,0 +1,112 @@
+.text-filed {
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 20px;
+  width: 100%;
+  resize: none;
+  height: 300px;
+  outline: none;
+
+}
+
+.text-filed-div {
+  margin: 0 auto 20px;
+  width: 500px;
+  max-width: 100%;
+  padding-bottom: 20px;
+}
+
+.title-label {
+  margin: 0;
+  color: rgb(12, 160, 249);
+  font-size: 40px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.message-submit-button {
+  height: 30px;
+}
+
+.message-submit-button:hover {
+  background-color: #c2e2f6 !important;
+}
+
+.leave-message-div {
+  border-radius: 5px;
+  background-color: #e0e0e0;
+  padding: 20px;
+  min-height: 300px;
+}
+
+.leave-message-main {
+  margin: 20px auto 20px;
+  width: 500px;
+  max-width: 100%;
+}
+
+.leave-message-main-leave {
+  margin: 20px auto 20px;
+  width: 500px;
+  max-width: 100%;
+}
+
+
+.leave-content {
+  padding: 20px;
+}
+
+.message-name {
+  color: #34ace0;
+}
+
+.message-date {
+  color: #8d8686;
+}
+
+.message-data {
+  padding-top: 10px;
+}
+
+.message-edit-button {
+  &:hover {
+    background-color: transparent !important;
+    color: red;
+  }
+}
+
+.message-delete-button {
+  &:hover {
+    background-color: transparent !important;
+    color: red;
+  }
+}
+
+.padding-left-10 {
+  padding-left: 10px !important;
+}
+
+.leave-message-text-filed {
+  margin: auto;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 20px;
+  resize: none;
+  height: 150px;
+  outline: none;
+  width: 100%;
+}
+
+.margin-left-minus-15 {
+  margin-left: -15px !important;
+}
+
+.leave-edit-message-text {
+  max-width: 100%;
+  padding-left: 10px;
+}
