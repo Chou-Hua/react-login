@@ -30,7 +30,7 @@ const fakeData = [
   {
     name: 'Andy',
     Date: '2022/06/09 15:07',
-    message: 'FUCK',
+    message: 'CCCC',
     leaveMessage: [
       {
         name: 'Ken',
@@ -47,7 +47,7 @@ const fakeData = [
   {
     name: 'Ken',
     Date: '2022/06/09 15:07',
-    message: 'FUCK',
+    message: '你好',
     leaveMessage: [
       {
         name: 'Ken',

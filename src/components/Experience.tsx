@@ -16,7 +16,7 @@ export const Experience = () => {
         {
           projectName: '大江生醫司馬驛 : 管理者設定 | 小遊戲後台 | 圖片預覽',
           projectContent:
-            '兩周內將從零開始學習js、vue相關知識，並於兩周後投入網頁遊戲後台系統開發，主要處理遊戲畫面設定，例如轉盤圖片顏色更換，' +
+            '從零開始學習js、vue相關知識，並投入網頁遊戲後台系統開發中的簡易功能開發，主要處理遊戲畫面設定，例如轉盤圖片顏色更換，' +
             '設定時可以即時看到修改後的樣式，處理中獎名單以及獎品數量種類控管資料，採用Vue 、 TypeScript 、 Vuex 進行開發' +
             '並使用TypeScript來規範資料的型態，使商業邏輯以及資料更加嚴謹化',
           skillList: ['Vue', 'Vuex', 'TypeScript', 'Boostrap-Vue', 'Eslint']
@@ -43,7 +43,7 @@ export const Experience = () => {
           skillList: ['Sikulix', 'Java', 'Python', 'Win32Api', 'opencv', 'Selenium', 'Numpy']
         },
         {
-          projectName: '分析資料，將資料進行可試化',
+          projectName: '分析資料，將資料進行可視化',
           projectContent: '分析網頁內的User-Agent記錄著用戶使用什麼作業系統、手機、平板、瀏覽器版本，再將分析後的資料統整，利用Pyecharts' +
             '產出相關資料的可視化圖表，讓團隊內可以更加快速的了解，各種版本的占比。',
           skillList: ['Python', 'Numpy', 'Matplotlib', 'Pyecharts']
