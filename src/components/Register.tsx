@@ -59,7 +59,7 @@ const Register = () => {
   }
   const validationSchema = Yup.object({
     account: Yup.string()
-      .min(5, '名稱長度至少為5')
+      .min(4, '名稱長度至少為4')
       .required('必填'),
     password: Yup.string()
       .test("passwordCheck", "密碼須包含大小寫字母且長度為8", (value: any) => {
