@@ -5,6 +5,11 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { Loading } from "./LoadingOverlay";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import WarningIcon from '@mui/icons-material/Warning';
 
 interface iconType {
   icon: String,
@@ -17,7 +22,6 @@ type textareaType = {
   value?: string,
   content?: string
 }
-
 type leaveMessageType = {
   messageID?: string,
   id?: string,
@@ -32,6 +36,13 @@ type messageType = {
   message?: any,
   comment: Array<object>
 }
+
+const isHaveText = (data: string) => {
+  let isEmpty = data.length === 0
+  let isHaveSpace = data.replace(/(^s*)|(s*$)/g, "").length == 0
+  return isEmpty && isHaveSpace
+}
+
 const getAccountName = () => {
   const jwt = JSON.parse(JSON.stringify(localStorage.getItem('jwt')))
   const jwtJson: any = jwt_decode<Object>(jwt)
@@ -44,6 +55,7 @@ const MessageTextArea = (props: textareaType) => {
         <textarea className={props.className} placeholder={props.placeholder}
                   value={props.value}
                   onChange={props.onChange}>{props.content}
+          required
         </textarea>
     </div>
   )
@@ -55,8 +67,8 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
   const [loadingOpen, setLoadingOpen] = React.useState(false);
   const handleLoadingOpen = () => setLoadingOpen(true);
   const handleLoadingClose = () => setLoadingOpen(false);
-  const getAllMessage = async()=>{
-    await  axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+  const getAllMessage = async () => {
+    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
       setApiMessage(res.data);
     })
   }
@@ -66,7 +78,7 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
     const message = props.message;
     setLeaveMessage(message);
   }, [props.message])
-  const editCommentMessage = async() => {
+  const editCommentMessage = async () => {
 
     let request = {
       messageID: props.messageID,
@@ -82,48 +94,81 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
     await getAllMessage().then();
     setIsLeaveClickEditBtn(!isClickLeaveEditBtn);
     handleLoadingClose();
-
   }
-  const deleteComment = async ()=>{
+  const deleteComment = async () => {
+    handleClose();
     handleLoadingOpen();
     let request = {
-      messageID:props.messageID,
-      commentID:props.id
+      messageID: props.messageID,
+      commentID: props.id
     }
     // @ts-ignore
-    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteComment',{data:request}).then();
+    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteComment', {data: request}).then();
     handleLoadingClose();
     await getAllMessage().then();
   }
-
+  const openCheckModal = () => {
+    setOpen(true);
+  }
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div className='leave-message-main-leave'>
       <Loading isLoading={loadingOpen}/>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <div className="d-flex">
+            <WarningIcon className="delete-warning-icon" fontSize={"large"}/>
+            <div className="delete-article-text">{"Warning!!"}</div>
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <div className="delete-text">
+            確定刪除此留言?
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>取消</Button>
+          <Button variant={"text"} className="message-edit-button " onClick={deleteComment} autoFocus>
+            確認
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className='d-flex padding-left-10'>
-        <div className='message-name'>{props.name ? props.name : '匿名人士'}</div>
+        <div className='message-name'>{(props.name !== '' && props.name !== "admin") ? props.name : '匿名人士'}</div>
         <div className='message-date'>&nbsp;{"在 " + props.time + ' 發布了這則訊息'}</div>
       </div>
       <div className='message-data'>
         <div className='padding-left-10'>
           {props.message}
+          <div className='d-flex float-right'>
+            {props.name === getAccountName() ?
+              <div>
+                <Button variant="text" className="message-edit-button"
+                        onClick={() => {
+                          setIsLeaveClickEditBtn(!isClickLeaveEditBtn);
+                          setLeaveMessage(props.message)
+                        }}
+                >
+                  {isClickLeaveEditBtn ? '編輯留言' : '取消'}
+                </Button>
+                <Button variant="text" className="message-delete-button" onClick={openCheckModal}>
+                  刪除留言
+                </Button>
+              </div> : <></>
+            }
+          </div>
         </div>
-        <div className='d-flex float-right'>
-          {props.name === getAccountName() ?
-            <div>
-              <Button variant="text" className="message-edit-button"
-                      onClick={() => {
-                        setIsLeaveClickEditBtn(!isClickLeaveEditBtn);
-                        setLeaveMessage(props.message)
-                      }}
-              >
-                {isClickLeaveEditBtn ? '編輯留言' : '取消'}
-              </Button>
-              <Button variant="text" className="message-delete-button" onClick={deleteComment}>
-                刪除留言
-              </Button>
-            </div> : <></>
-          }
-        </div>
+
         <div className='leave-edit-message-text'>
           {!isClickLeaveEditBtn ?
             <>
@@ -134,6 +179,7 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
                                }
                                content={props.message}/>
               <Button variant="text" className="message-edit-button margin-left-minus-15"
+                      disabled={isHaveText(leaveMessage)}
                       onClick={getLeaveMessageData}>送出</Button>
             </> : ''
           }
@@ -159,21 +205,25 @@ const MessageComponent = (props: messageType) => {
     const message = props.message;
     setEditMessage(message);
   }, [props.message])
-  const getAllMessage = async()=>{
+  const getAllMessage = async () => {
     handleLoadingOpen();
-    await  axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
       setApiMessage(res.data);
     })
     handleLoadingClose();
   }
   const submitLeaveMessage = async () => {
     //更新留言
-    let request = {
-      messageID: props.id,
-      message: replyMessage,
-      name: getAccountName()
+    if (replyMessage == '') {
+      return
+    } else {
+      let request = {
+        messageID: props.id,
+        message: replyMessage,
+        name: getAccountName()
+      }
+      await axios.post('https://python-flask-chouhua.herokuapp.com/message/comment', request).then();
     }
-    await axios.post('https://python-flask-chouhua.herokuapp.com/message/comment', request).then();
   }
   const submitReplyMessageData = async () => {
     handleLoadingOpen();
@@ -182,7 +232,7 @@ const MessageComponent = (props: messageType) => {
     handleLoadingClose();
     setIsClickReply(!isClickReplay);
   }
-  const editLeaveMessage = async ()=>{
+  const editLeaveMessage = async () => {
     //更新文章
     let request = {
       messageID: props.id,
@@ -202,19 +252,54 @@ const MessageComponent = (props: messageType) => {
     const jwtJson: any = jwt_decode<Object>(jwt)
     return jwtJson?.sub;
   }
-  const deleteArticle = async ()=>{
+  const deleteArticle = async () => {
+    handleClose();
     handleLoadingOpen();
-    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteArticle?id='+props.id).then();
+    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteArticle?id=' + props.id).then();
     handleLoadingClose();
     await getAllMessage().then();
   }
+  const openCheckModal = () => {
+    setOpen(true);
+  }
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className='leave-message-main'>
       <Loading isLoading={loadingOpen}/>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <div className="d-flex">
+            <WarningIcon className="delete-warning-icon" fontSize={"large"}/>
+            <div className="delete-article-text">{"Warning!!"}</div>
+          </div>
+        </DialogTitle>
+        <DialogContent>
+          <div className="delete-text">
+            確定刪除此文章?
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>取消</Button>
+          <Button variant={"text"} className="message-edit-button " onClick={deleteArticle}>
+            確認
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className='leave-message-div'>
         <div>
           <div className='d-flex'>
-            <div className='message-name'>{props.name ? props.name : '匿名人士'}</div>
+            <div className='message-name'>{props.name !== '' && props.name !== "admin" ? props.name : '匿名人士'}</div>
             <div className='message-date'>&nbsp;{"在 " + props.time + ' 發布了這則訊息'}</div>
           </div>
           <div className='message-data'>
@@ -230,7 +315,7 @@ const MessageComponent = (props: messageType) => {
                   >
                     {isClickEditBtn ? '編輯文章' : '取消'}
                   </Button>
-                  <Button variant="text" className="message-delete-button" onClick={deleteArticle}>
+                  <Button variant="text" className="message-delete-button" onClick={openCheckModal}>
                     刪除文章
                   </Button>
                 </div> : <></>
@@ -245,6 +330,7 @@ const MessageComponent = (props: messageType) => {
                                  }
                                  content={props.message}/>
                 <Button variant="text" className="message-edit-button margin-left-minus-15"
+                        disabled={isHaveText(editMessage)}
                         onClick={getEditMessageData}>送出</Button>
               </> : ''
             }
@@ -269,7 +355,7 @@ const MessageComponent = (props: messageType) => {
                 setReplyMessage(e.target.value)
               }}
               />
-              <Button variant="text" className="message-edit-button margin-left-minus-15"
+              <Button variant="text" className="message-edit-button margin-left-minus-15" disabled={true}
                       onClick={submitReplyMessageData}>送出</Button>
             </>
             : ''}
@@ -343,9 +429,9 @@ const fakeData = [
 const Main = () => {
   const [apiMessage, setApiMessage] = useRecoilState(apiMessageData);
   const [isApiPass, setIsApiPass] = useState(false);
-  const getAllMessage = async()=>{
+  const getAllMessage = async () => {
     handleLoadingOpen();
-    await  axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
       setApiMessage(res.data);
       setIsApiPass(true);
     })
@@ -353,63 +439,63 @@ const Main = () => {
   }
   useEffect(() => {
     getAllMessage().then()
-}, [])
-const [loadingOpen, setLoadingOpen] = React.useState(false);
-const handleLoadingOpen = () => setLoadingOpen(true);
-const handleLoadingClose = () => setLoadingOpen(false);
+  }, [])
+  const [loadingOpen, setLoadingOpen] = React.useState(false);
+  const handleLoadingOpen = () => setLoadingOpen(true);
+  const handleLoadingClose = () => setLoadingOpen(false);
+  const [messageData, setMessage] = useState('');
+  const submitMessage = async () => {
+    handleLoadingOpen();
+    let request = {
+      message: messageData,
+      name: getAccountName()
+    }
+    await axios.post('https://python-flask-chouhua.herokuapp.com/message/add', request).then();
+    handleLoadingClose();
+    getAllMessage().then();
+    setMessage('');
 
-const [messageData, setMessage] = useState('');
-const submitMessage = async () => {
-  handleLoadingOpen();
-  let request = {
-    message: messageData,
-    name: getAccountName()
   }
-  await axios.post('https://python-flask-chouhua.herokuapp.com/message/add', request).then();
-  handleLoadingClose();
-  getAllMessage().then();
-  setMessage('');
+  const icon = ['❅', '❆', '✿', '❆', '❅', '❆', '❀', '❆', '❅', '❆', '✿', '❆', '❅', '❆', '❀', '❆']
 
-}
-
-const icon = ['❅', '❆', '✿', '❆', '❅', '❆', '❀', '❆', '❅', '❆', '✿', '❆', '❅', '❆', '❀', '❆']
-return (
-  <main>
-    <Loading isLoading={loadingOpen}/>
-    <div className='main-bg'>
-      <div className='text-filed-div'>
-        <h1 className='title-label'>發牢騷留言板</h1>
-        <MessageTextArea
-          className='text-filed' placeholder='輸入想說的話' onChange={(e: any) => {
-          setMessage(e.target.value)
-        }}
-          value={messageData}
-        />
-        <Button variant="outlined" className="message-submit-button" onClick={submitMessage}>送出</Button>
-        {isApiPass ?
-          <div>
-            {
-              apiMessage && apiMessage?.map((item: messageType, i) =>
-                (<MessageComponent
-                  id={item.id ? item.id : ''}
-                  name={item.name}
-                  time={item.time}
-                  message={item.message}
-                  comment={item.comment ? item.comment : []}
-                  key={i}/>)
-              )
-            }
-          </div> : <></>
-        }
+  return (
+    <main>
+      <Loading isLoading={loadingOpen}/>
+      <div className='main-bg'>
+        <div className='text-filed-div'>
+          <h1 className='title-label'>發牢騷留言板</h1>
+          <MessageTextArea
+            className='text-filed' placeholder='輸入想說的話' onChange={(e: any) => {
+            setMessage(e.target.value)
+          }}
+            value={messageData}
+          />
+          <Button variant="outlined" className="message-submit-button" onClick={submitMessage}
+                  disabled={isHaveText(messageData)}>送出</Button>
+          {isApiPass ?
+            <div>
+              {
+                apiMessage && apiMessage?.map((item: messageType, i) =>
+                  (<MessageComponent
+                    id={item.id ? item.id : ''}
+                    name={item.name}
+                    time={item.time}
+                    message={item.message}
+                    comment={item.comment ? item.comment : []}
+                    key={i}/>)
+                )
+              }
+            </div> : <></>
+          }
+        </div>
+        <div>
+          {icon.map((item, i) => (
+            <Flake key={i} icon={item}/>
+          ))}
+        </div>
       </div>
-      <div>
-        {icon.map((item, i) => (
-          <Flake key={i} icon={item}/>
-        ))}
-      </div>
-    </div>
-  </main>
-)
+    </main>
+  )
 }
 
 export default Main;

@@ -100,11 +100,12 @@ export default function Header() {
                 jumpPage('/');
                 setRoutePath('/');
                 break;
+            // {/*TODO Andy BinanceAPI*/}
+            // case 1:
+            //     jumpPage('/websocket');
+            //     setRoutePath('/websocket');
+            //     break;
             case 1:
-                jumpPage('/websocket');
-                setRoutePath('/websocket');
-                break;
-            case 2:
                 jumpPage('/about');
                 setRoutePath('/about');
                 break;
@@ -115,15 +116,6 @@ export default function Header() {
         <div>
             <AppBar position="fixed">
                 <Toolbar>
-                    {/*<IconButton*/}
-                    {/*    size="large"*/}
-                    {/*    edge="start"*/}
-                    {/*    color="inherit"*/}
-                    {/*    aria-label="open drawer"*/}
-                    {/*    sx={{mr: 2}}*/}
-                    {/*>*/}
-                    {/*    <MenuIcon/>*/}
-                    {/*</IconButton>*/}
                     <Typography  component="div" sx={{flexGrow: 1}}>
                         <Tabs
                             value={value}
@@ -134,7 +126,8 @@ export default function Header() {
                             allowScrollButtonsMobile
                         >
                             <LinkTab label="Main"/>
-                            <LinkTab label="Binance Kline"/>
+                            {/*TODO Andy BinanceAPI*/}
+                            {/*<LinkTab label="Binance Kline"/>*/}
                             <LinkTab label="About me"/>
                         </Tabs>
                     </Typography>
