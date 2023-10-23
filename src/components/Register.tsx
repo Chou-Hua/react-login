@@ -31,7 +31,7 @@ const Register = () => {
     }
     try {
       await fetch(
-        'https://python-flask-chouhua.herokuapp.com/user/add',
+        'https://python-flask-chouhua.onrender.com/user/add',
         {
           method: "POST",
           headers: header,

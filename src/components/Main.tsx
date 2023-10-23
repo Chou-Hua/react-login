@@ -68,7 +68,7 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
   const handleLoadingOpen = () => setLoadingOpen(true);
   const handleLoadingClose = () => setLoadingOpen(false);
   const getAllMessage = async () => {
-    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+    await axios.get('https://python-flask-chouhua.onrender.com/message/').then((res) => {
       setApiMessage(res.data);
     })
   }
@@ -86,7 +86,7 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
       message: leaveMessage,
       name: getAccountName()
     }
-    await axios.put('https://python-flask-chouhua.herokuapp.com/message/editComment', request).then();
+    await axios.put('https://python-flask-chouhua.onrender.com/message/editComment', request).then();
   }
   const getLeaveMessageData = async () => {
     handleLoadingOpen();
@@ -103,7 +103,7 @@ const LeaveMessageComponent = (props: leaveMessageType) => {
       commentID: props.id
     }
     // @ts-ignore
-    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteComment', {data: request}).then();
+    await axios.delete('https://python-flask-chouhua.onrender.com/message/deleteComment', {data: request}).then();
     handleLoadingClose();
     await getAllMessage().then();
   }
@@ -207,7 +207,7 @@ const MessageComponent = (props: messageType) => {
   }, [props.message])
   const getAllMessage = async () => {
     handleLoadingOpen();
-    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+    await axios.get('https://python-flask-chouhua.onrender.com/message/').then((res) => {
       setApiMessage(res.data);
     })
     handleLoadingClose();
@@ -222,7 +222,7 @@ const MessageComponent = (props: messageType) => {
         message: replyMessage,
         name: getAccountName()
       }
-      await axios.post('https://python-flask-chouhua.herokuapp.com/message/comment', request).then();
+      await axios.post('https://python-flask-chouhua.onrender.com/message/comment', request).then();
     }
   }
   const submitReplyMessageData = async () => {
@@ -238,7 +238,7 @@ const MessageComponent = (props: messageType) => {
       messageID: props.id,
       message: editMessage
     }
-    await axios.put('https://python-flask-chouhua.herokuapp.com/message/editArticle', request).then();
+    await axios.put('https://python-flask-chouhua.onrender.com/message/editArticle', request).then();
   }
   const getEditMessageData = async () => {
     handleLoadingOpen();
@@ -255,7 +255,7 @@ const MessageComponent = (props: messageType) => {
   const deleteArticle = async () => {
     handleClose();
     handleLoadingOpen();
-    await axios.delete('https://python-flask-chouhua.herokuapp.com/message/deleteArticle?id=' + props.id).then();
+    await axios.delete('https://python-flask-chouhua.onrender.com/message/deleteArticle?id=' + props.id).then();
     handleLoadingClose();
     await getAllMessage().then();
   }
@@ -431,7 +431,7 @@ const Main = () => {
   const [isApiPass, setIsApiPass] = useState(false);
   const getAllMessage = async () => {
     handleLoadingOpen();
-    await axios.get('https://python-flask-chouhua.herokuapp.com/message/').then((res) => {
+    await axios.get('https://python-flask-chouhua.onrender.com/message/').then((res) => {
       setApiMessage(res.data);
       setIsApiPass(true);
     })
@@ -450,7 +450,7 @@ const Main = () => {
       message: messageData,
       name: getAccountName()
     }
-    await axios.post('https://python-flask-chouhua.herokuapp.com/message/add', request).then();
+    await axios.post('https://python-flask-chouhua.onrender.com/message/add', request).then();
     handleLoadingClose();
     getAllMessage().then();
     setMessage('');

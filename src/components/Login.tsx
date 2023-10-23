@@ -79,7 +79,7 @@ const Login = () => {
     }
     try {
       await fetch(
-        'https://python-flask-chouhua.herokuapp.com/user/login',
+        'https://python-flask-chouhua.onrender.com/user/login',
         {
           method: "POST",
           headers: header,

@@ -71,7 +71,7 @@ const ChangePassword = () => {
     }
     try {
       await fetch(
-        'https://python-flask-chouhua.herokuapp.com/user/changePassword',
+        'https://python-flask-chouhua.onrender.com/user/changePassword',
         {
           method: "PUT",
           headers: header,
